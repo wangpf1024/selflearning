@@ -17,6 +17,7 @@
         <module>leetcode-homework</module>
         <module>distributed-transaction-api</module>
         <module>home-work</module>
+        <module>synchronization</module>
     </modules>
 
 
@@ -46,6 +47,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.0.4.RELEASE</version>
             </plugin>
         </plugins>
     </build>
