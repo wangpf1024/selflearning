@@ -31,7 +31,7 @@ public class ConsumerDemo {
         waitConsumer();
 
         //申请公共缓冲区池的互斥访问权限
-        MsgQueue.waitProducer(msg);
+        MsgQueue.waitMsgQueue(msg);
 
         //从 out 指针指向的缓冲区中区消息 (10 % 10) - 1
         int left = ProducerDemo.full.get() % MsgQueue.capacity;
@@ -50,7 +50,7 @@ public class ConsumerDemo {
         out.set(outIdx);
 
         //释放对公共缓冲区的互斥访问权
-        MsgQueue.signalProducer(msg);
+        MsgQueue.signalMsgQueue(msg);
 
         //释放消息资源
         signalConsumer();

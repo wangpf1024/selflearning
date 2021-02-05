@@ -29,7 +29,7 @@ public class MsgQueue {
 
 
 
-    public static void waitProducer(String msg){
+    public static void waitMsgQueue(String msg){
         while (mutex.get() <= 0){
             System.out.println(msg + ",等待设置一个互斥信号量mutex = 1");
             try {
@@ -43,7 +43,7 @@ public class MsgQueue {
     }
 
 
-    public static void signalProducer(String msg){
+    public static void signalMsgQueue(String msg){
         mutex.set(1);
         System.out.println(msg +"，设置一个互斥信号量mutex = 0");
     }

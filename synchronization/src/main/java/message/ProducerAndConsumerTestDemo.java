@@ -25,7 +25,7 @@ public class ProducerAndConsumerTestDemo {
 
 
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             System.out.println("生产者提交生产任务[" +i+"]次");
             final int id = i;
             Runnable p1 =  new Runnable() {
@@ -43,6 +43,25 @@ public class ProducerAndConsumerTestDemo {
             executor.execute(p1);
         }
 
+        for (int i = 0; i < 1; i++) {
+            System.out.println("消费提交生产任务[" +i+"]次");
+            final int id = i;
+            Runnable p1 =  new Runnable() {
+                public void run() {
+                    //
+                    try {
+                        Thread.sleep(2000);
+                    }catch (Exception e){
+
+                    }
+                    ConsumerDemo.consumer("消费提交生产任务ID = "+ id);
+                }
+            };
+
+            executor.execute(p1);
+        }
+
+
 
 
         try {
@@ -51,6 +70,7 @@ public class ProducerAndConsumerTestDemo {
         }catch (Exception e){
 
         }
+
 
         //executor.shutdown();
 

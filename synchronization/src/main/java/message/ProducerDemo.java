@@ -36,7 +36,7 @@ public class ProducerDemo {
         waitProducer(msg);
 
         //申请公共缓冲区池的互斥访问权限
-        MsgQueue.waitProducer(msg);
+        MsgQueue.waitMsgQueue(msg);
 
         //将消息放入 in 指针指向的缓冲区
         MsgQueue.empty[in.get()] = msg;
@@ -47,7 +47,7 @@ public class ProducerDemo {
         in.addAndGet(1);
 
         //释放对公共缓冲区的互斥访问权
-        MsgQueue.signalProducer(msg);
+        MsgQueue.signalMsgQueue(msg);
 
         //释放消息资源
         signalProducer(msg);
