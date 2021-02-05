@@ -64,7 +64,7 @@ public class RecordMechanism {
 
         process.add(pid);
 
-        System.out.println(pid + "调用是无资源,添加阻塞队队列中：" + process.size()+"，资源数量："+source);
+        System.out.println(pid + "调用的时候无资源,添加阻塞队队列中：" + process.size()+"，资源数量："+source);
 
         //判断是否存在阻塞
         while (!process.isEmpty()){
