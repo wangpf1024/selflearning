@@ -25,8 +25,8 @@ public class ProducerAndConsumerTestDemo {
 
 
 
-        for (int i = 0; i < 1; i++) {
-            System.out.println("生产者提交生产任务[" +i+"]次");
+        for (int i = 0; i < MsgQueue.capacity; i++) {
+            System.out.println("生产者-提交生产任务[" +i+"]次");
             final int id = i;
             Runnable p1 =  new Runnable() {
                 public void run() {
@@ -36,15 +36,15 @@ public class ProducerAndConsumerTestDemo {
                     }catch (Exception e){
 
                     }
-                    ProducerDemo.produce("生产消息序列ID = "+ id);
+                    ProducerDemo.produce("生产者-息序列ID = "+ id);
                 }
             };
 
             executor.execute(p1);
         }
-
-        for (int i = 0; i < 1; i++) {
-            System.out.println("消费提交生产任务[" +i+"]次");
+/*
+        for (int i = 0; i < MsgQueue.capacity; i++) {
+            System.out.println("消费者-提交消费任务[" +i+"]次");
             final int id = i;
             Runnable p1 =  new Runnable() {
                 public void run() {
@@ -54,12 +54,12 @@ public class ProducerAndConsumerTestDemo {
                     }catch (Exception e){
 
                     }
-                    ConsumerDemo.consumer("消费提交生产任务ID = "+ id);
+                    ConsumerDemo.consumer("消费者-提交消费任务ID = "+ id);
                 }
             };
 
             executor.execute(p1);
-        }
+        }*/
 
 
 

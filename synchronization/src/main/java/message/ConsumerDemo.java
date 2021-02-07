@@ -33,19 +33,12 @@ public class ConsumerDemo {
         //申请公共缓冲区池的互斥访问权限
         MsgQueue.waitMsgQueue(msg);
 
-        //从 out 指针指向的缓冲区中区消息 (10 % 10) - 1
-        int left = ProducerDemo.full.get() % MsgQueue.capacity;
+        //从 out 指针指向的缓冲区中区消息
 
-        int absLeft = Math.abs(left);
-
-        System.out.println("消息缓冲区剩余大小："+absLeft);
-
-        String content = MsgQueue.empty[out.get()];
-
-        System.out.println("消费消息内容："+content);
+        int n = MsgQueue.getContent(out.get(),msg);
 
         //out 指针指向下一个装有消息的缓冲区
-        int outIdx = out.addAndGet(1) % MsgQueue.capacity;
+        int outIdx = out.addAndGet(1) % n;
 
         out.set(outIdx);
 

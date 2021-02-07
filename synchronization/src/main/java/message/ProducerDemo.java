@@ -39,12 +39,14 @@ public class ProducerDemo {
         MsgQueue.waitMsgQueue(msg);
 
         //将消息放入 in 指针指向的缓冲区
-        MsgQueue.empty[in.get()] = msg;
-
-        System.out.println("产生消息下标="+in.get()+",内容："+msg);
+        int n = MsgQueue.addContent(in.get(),msg);
 
         //in 指针指向下一个空缓冲区
-        in.addAndGet(1);
+        int next = Math.floorMod(in.addAndGet(1),n);
+
+        System.out.println(msg + ",下一个空缓冲区 next = "+next);
+
+        in.set(next);
 
         //释放对公共缓冲区的互斥访问权
         MsgQueue.signalMsgQueue(msg);

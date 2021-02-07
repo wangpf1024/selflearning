@@ -14,7 +14,7 @@ public class MsgQueue {
 
 
     //缓冲区大小
-    public static final int capacity = 10;
+    public static final int capacity = 4;
 
     /**
      * 设置一个互斥信号量  mutex ，用户实现对公共缓冲区的互斥访问，初始值为 1.
@@ -22,11 +22,14 @@ public class MsgQueue {
     private  static AtomicInteger mutex = new AtomicInteger(1);
 
     /**
-     * 设置一个具有n个缓冲区的缓冲池
+     * 缓冲内容区域
+     */
+    public static String[] emptyContent = new String[capacity];
+    /**
+     *  设置一个具有n个缓冲区的缓冲池
      * empty 表示缓冲区中空缓冲区数，初值为n。
      */
-    public static String[] empty = new String[capacity];
-
+    public static final AtomicInteger empty = new AtomicInteger(capacity);
 
 
     public static void waitMsgQueue(String msg){
@@ -46,6 +49,38 @@ public class MsgQueue {
     public static void signalMsgQueue(String msg){
         mutex.set(1);
         System.out.println(msg +"，设置一个互斥信号量mutex = 0");
+    }
+
+
+    /**
+     * 将消息放入 in 指针指向的缓冲区
+     * @param in
+     * @param msg
+     */
+    public static int addContent(int in,String msg){
+
+        //将消息放入 in 指针指向的缓冲区
+        MsgQueue.emptyContent[in] = msg;
+
+        System.out.println(msg+",产生消息下标="+in+",内容："+msg);
+
+        return empty.addAndGet(-1);
+
+    }
+
+    /**
+     * 从 out 指针指向的缓冲区中区消息
+     * @param out
+     * @param msg
+     */
+    public static int getContent(int out,String msg){
+
+        //将消息放入 in 指针指向的缓冲区
+        String content = MsgQueue.emptyContent[out];
+
+        System.out.println(msg+",消费消息内容："+content);
+
+        return empty.addAndGet(1);
     }
 
 
