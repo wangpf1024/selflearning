@@ -27,7 +27,7 @@ public class MsgQueue {
     public static String[] emptyContent = new String[capacity];
     /**
      *  设置一个具有n个缓冲区的缓冲池
-     * empty 表示缓冲区中空缓冲区数，初值为n。
+     *  empty 表示缓冲区中空缓冲区数，初值为n。
      */
     public static final AtomicInteger empty = new AtomicInteger(capacity);
 
@@ -42,13 +42,13 @@ public class MsgQueue {
             }
         }
         mutex.set(0);
-        System.out.println(msg + "设置一个互斥信号量mutex = 1");
+        System.out.println(msg + "设置一个互斥信号量mutex = 0");
     }
 
 
     public static void signalMsgQueue(String msg){
         mutex.set(1);
-        System.out.println(msg +"，设置一个互斥信号量mutex = 0");
+        System.out.println(msg +"，设置一个互斥信号量mutex = 1");
     }
 
 
@@ -58,6 +58,10 @@ public class MsgQueue {
      * @param msg
      */
     public static int addContent(int in,String msg){
+
+        while (empty.get() <= 0){
+            System.out.println("队列已满！");
+        }
 
         //将消息放入 in 指针指向的缓冲区
         MsgQueue.emptyContent[in] = msg;
@@ -81,6 +85,17 @@ public class MsgQueue {
         System.out.println(msg+",消费消息内容："+content);
 
         return empty.addAndGet(1);
+    }
+
+
+    /**
+     * 输出消息内容
+     */
+    public static void printMsg(){
+        System.out.println();
+        for (int i = 0; i < emptyContent.length; i++) {
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+i + "," +emptyContent[i]);
+        }
     }
 
 

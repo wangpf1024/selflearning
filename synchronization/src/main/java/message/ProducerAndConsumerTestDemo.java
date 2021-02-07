@@ -42,6 +42,8 @@ public class ProducerAndConsumerTestDemo {
 
             executor.execute(p1);
         }
+
+
 /*
         for (int i = 0; i < MsgQueue.capacity; i++) {
             System.out.println("消费者-提交消费任务[" +i+"]次");
@@ -71,6 +73,7 @@ public class ProducerAndConsumerTestDemo {
 
         }
 
+        MsgQueue.printMsg();
 
         //executor.shutdown();
 
