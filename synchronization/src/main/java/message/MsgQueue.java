@@ -31,6 +31,13 @@ public class MsgQueue {
      */
     public static volatile AtomicInteger empty = new AtomicInteger(capacity);
 
+    /**
+     * 	full 表示装有消息的缓冲区数，初始值为0.（一个缓冲区放一个消息）
+     * 	声明 Using volatile variables reduces the risk of memory consistency errors
+     * 	https://docs.oracle.com/javase/tutorial/essential/concurrency/atomic.html
+     */
+    public static volatile AtomicInteger full  = new AtomicInteger(0);
+
 
     public synchronized static void waitMsgQueue(String msg){
         while (mutex.get() <= 0){
@@ -84,6 +91,8 @@ public class MsgQueue {
 
         System.out.println(msg+",消费消息内容："+content);
 
+        MsgQueue.emptyContent[out] = null;
+
         return empty.addAndGet(1);
     }
 
@@ -96,6 +105,33 @@ public class MsgQueue {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+i + "," +emptyContent[i]);
         }
     }
+
+
+    /**
+     * 申请空缓冲区
+     */
+    public synchronized static void waitProducer(String msg){
+        while (MsgQueue.full.get() >= MsgQueue.capacity){
+            System.out.println(msg + ",申请空缓冲区失败，缓冲区已满");
+            try {
+                Thread.sleep(1000);
+            }catch (Exception e){
+
+            }
+        }
+        MsgQueue.full.addAndGet(1);
+        System.out.println(msg + ",申请空缓冲区成功");
+    }
+
+
+    /**
+     * 释放消息资源
+     */
+    public static void signalProducer(String msg){
+        MsgQueue.full.addAndGet(-1);
+        System.out.println(msg+",释放消息资源 full = "+MsgQueue.full.get());
+    }
+
 
 
 }

@@ -13,14 +13,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ConsumerDemo {
 
     /**
-     * 	full 表示装有消息的缓冲区数，初始值为0.（一个缓冲区放一个消息）
-     */
-    public static AtomicInteger full  = new AtomicInteger(0);
-
-    /**
      * 缓冲区地址
      */
-    private static AtomicInteger out  = new AtomicInteger(0);
+    private static volatile AtomicInteger out  = new AtomicInteger(0);
 
     /**
      * 消费消息：
@@ -28,17 +23,18 @@ public class ConsumerDemo {
     public static void consumer(String msg){
 
         //申请空缓冲区
-        waitConsumer();
+        waitConsumer(msg);
 
         //申请公共缓冲区池的互斥访问权限
         MsgQueue.waitMsgQueue(msg);
 
         //从 out 指针指向的缓冲区中区消息
-
         int n = MsgQueue.getContent(out.get(),msg);
 
+        System.out.println(msg + ",当前队列大小 n = "+n);
+
         //out 指针指向下一个装有消息的缓冲区
-        int outIdx = out.addAndGet(1) % n;
+        int outIdx = out.addAndGet(1) % MsgQueue.capacity;
 
         out.set(outIdx);
 
@@ -50,14 +46,15 @@ public class ConsumerDemo {
 
     }
 
+
     /**
      * 申请空缓冲区
      */
-    public static void waitConsumer(){
-        while (full.get() >= MsgQueue.capacity){
-            System.out.printf(".");
+    public synchronized static void waitConsumer(String msg){
+        while (MsgQueue.empty.get() == MsgQueue.capacity || MsgQueue.full.get() <=0){
+            System.out.println(msg + ",消息队列中无数据，等待中...");
         }
-        full.addAndGet(1);
+        System.out.println(msg + ",获取缓冲区数据");
     }
 
 
@@ -67,5 +64,6 @@ public class ConsumerDemo {
     public static void signalConsumer(){
         //to do nothing
     }
+
 
 }

@@ -44,25 +44,34 @@ public class ProducerAndConsumerTestDemo {
             executor.execute(p1);
         }
 
+ /*       try {
+            //获得资源 do something here
+            Thread.sleep(10000);
+        }catch (Exception e){
 
-/*
-        for (int i = 0; i < MsgQueue.capacity; i++) {
+        }
+
+        MsgQueue.printMsg();*/
+
+
+       for (int i = 0; i < MsgQueue.capacity; i++) {
             System.out.println("消费者-提交消费任务[" +i+"]次");
             final int id = i;
             Runnable p1 =  new Runnable() {
                 public void run() {
                     //
+                    long threadId = Thread.currentThread().getId();
                     try {
                         Thread.sleep(2000);
                     }catch (Exception e){
 
                     }
-                    ConsumerDemo.consumer("消费者-提交消费任务ID = "+ id);
+                    ConsumerDemo.consumer("线程ID："+threadId+",消费者-提交消费任务ID = "+ id);
                 }
             };
 
             executor.execute(p1);
-        }*/
+        }
 
 
 
