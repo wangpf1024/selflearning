@@ -31,12 +31,13 @@ public class ProducerAndConsumerTestDemo {
             Runnable p1 =  new Runnable() {
                 public void run() {
                     //
+                    long threadId = Thread.currentThread().getId();
                     try {
                         Thread.sleep(2000);
                     }catch (Exception e){
 
                     }
-                    ProducerDemo.produce("生产者-息序列ID = "+ id);
+                    ProducerDemo.produce("线程ID："+threadId+",生产者-息序列ID = "+ id);
                 }
             };
 

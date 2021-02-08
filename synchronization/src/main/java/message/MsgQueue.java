@@ -29,12 +29,12 @@ public class MsgQueue {
      *  设置一个具有n个缓冲区的缓冲池
      *  empty 表示缓冲区中空缓冲区数，初值为n。
      */
-    public static final AtomicInteger empty = new AtomicInteger(capacity);
+    public static volatile AtomicInteger empty = new AtomicInteger(capacity);
 
 
-    public static void waitMsgQueue(String msg){
+    public synchronized static void waitMsgQueue(String msg){
         while (mutex.get() <= 0){
-            System.out.println(msg + ",等待设置一个互斥信号量mutex = 1");
+            System.out.println(msg + ",等待消息缓冲区释放");
             try {
                 Thread.sleep(1000);
             }catch (Exception e){
@@ -42,13 +42,13 @@ public class MsgQueue {
             }
         }
         mutex.set(0);
-        System.out.println(msg + "设置一个互斥信号量mutex = 0");
+        System.out.println(msg + ",锁定消息缓冲区");
     }
 
 
     public static void signalMsgQueue(String msg){
         mutex.set(1);
-        System.out.println(msg +"，设置一个互斥信号量mutex = 1");
+        System.out.println(msg +",释放消息缓冲区");
     }
 
 
@@ -66,7 +66,7 @@ public class MsgQueue {
         //将消息放入 in 指针指向的缓冲区
         MsgQueue.emptyContent[in] = msg;
 
-        System.out.println(msg+",产生消息下标="+in+",内容："+msg);
+        System.out.println(msg+",消息队列下标位置="+in+",内容："+msg);
 
         return empty.addAndGet(-1);
 
@@ -92,7 +92,6 @@ public class MsgQueue {
      * 输出消息内容
      */
     public static void printMsg(){
-        System.out.println();
         for (int i = 0; i < emptyContent.length; i++) {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+i + "," +emptyContent[i]);
         }
