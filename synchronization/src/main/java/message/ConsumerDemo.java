@@ -29,9 +29,9 @@ public class ConsumerDemo {
         MsgQueue.waitMsgQueue(msg);
 
         //从 out 指针指向的缓冲区中区消息
-        int n = MsgQueue.getContent(out.get(),msg);
+        String content = MsgQueue.getContent(out.get(),msg);
 
-        System.out.println(msg + ",当前队列大小 n = "+n);
+        System.out.println(msg+",获取队列中的内容"+content);
 
         //out 指针指向下一个装有消息的缓冲区
         int outIdx = out.addAndGet(1) % MsgQueue.capacity;
@@ -51,7 +51,8 @@ public class ConsumerDemo {
      * 申请空缓冲区
      */
     public synchronized static void waitConsumer(String msg){
-        while (MsgQueue.empty.get() == MsgQueue.capacity || MsgQueue.full.get() <=0){
+        while (MsgQueue.empty.get() == MsgQueue.capacity
+                || MsgQueue.full.get() <=0){
             System.out.println(msg + ",消息队列中无数据，等待中...");
         }
         System.out.println(msg + ",获取缓冲区数据");
@@ -63,6 +64,7 @@ public class ConsumerDemo {
      */
     public static void signalConsumer(){
         //to do nothing
+        MsgQueue.empty.addAndGet(1);
     }
 
 

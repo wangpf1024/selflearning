@@ -84,16 +84,14 @@ public class MsgQueue {
      * @param out
      * @param msg
      */
-    public static int getContent(int out,String msg){
+    public static String getContent(int out,String msg){
 
         //将消息放入 in 指针指向的缓冲区
         String content = MsgQueue.emptyContent[out];
-
-        System.out.println(msg+",消费消息内容："+content);
-
         MsgQueue.emptyContent[out] = null;
 
-        return empty.addAndGet(1);
+        return content;
+
     }
 
 
