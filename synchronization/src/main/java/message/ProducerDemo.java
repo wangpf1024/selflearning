@@ -34,14 +34,14 @@ public class ProducerDemo {
         //将消息放入 in 指针指向的缓冲区
         int n = MsgQueue.addContent(in.get(),msg);
 
-        System.out.println(msg + ",当前队列大小 n = "+n);
+        //System.out.println(msg + ",当前队列大小 n = "+n);
 
         in.addAndGet(1);
 
         //in 指针指向下一个空缓冲区
         int next = in.get() % MsgQueue.capacity;
 
-        System.out.println(msg + ",下一个空缓冲区 next = "+next);
+        //System.out.println(msg + ",下一个空缓冲区 next = "+next);
 
         in.set(next);
 

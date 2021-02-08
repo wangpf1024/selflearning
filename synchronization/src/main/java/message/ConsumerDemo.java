@@ -52,16 +52,22 @@ public class ConsumerDemo {
      */
     public synchronized static void waitConsumer(String msg){
         while (MsgQueue.empty.get() == MsgQueue.capacity){
-            System.out.println(msg + ",消息队列中无数据，等待中...");
+            //System.out.println(msg + ",消息队列中无数据，等待中...");
+            System.out.println(".");
+            try {
+                Thread.sleep(500);
+            }catch (Exception e){
+
+            }
         }
-        System.out.println(msg + ",获取缓冲区数据");
+        //System.out.println(msg + ",获取缓冲区数据");
     }
 
 
     /**
      * 释放消息资源
      */
-    public static void signalConsumer(){
+    public synchronized static void signalConsumer(){
         //to do nothing
         MsgQueue.empty.addAndGet(1);
     }

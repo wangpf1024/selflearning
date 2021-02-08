@@ -41,7 +41,7 @@ public class MsgQueue {
 
     public synchronized static void waitMsgQueue(String msg){
         while (mutex.get() <= 0){
-            System.out.println(msg + ",等待消息缓冲区释放");
+            //System.out.println(msg + ",等待消息缓冲区释放");
             try {
                 Thread.sleep(1000);
             }catch (Exception e){
@@ -49,13 +49,13 @@ public class MsgQueue {
             }
         }
         mutex.set(0);
-        System.out.println(msg + ",锁定消息缓冲区");
+        //System.out.println(msg + ",锁定消息缓冲区");
     }
 
 
     public static void signalMsgQueue(String msg){
         mutex.set(1);
-        System.out.println(msg +",释放消息缓冲区");
+        //System.out.println(msg +",释放消息缓冲区");
     }
 
 
@@ -125,16 +125,16 @@ public class MsgQueue {
             }
         }
         MsgQueue.full.addAndGet(1);
-        System.out.println(msg + ",申请空缓冲区成功");
+       // System.out.println(msg + ",申请空缓冲区成功");
     }
 
 
     /**
      * 释放消息资源
      */
-    public static void signalProducer(String msg){
+    public synchronized static void signalProducer(String msg){
         MsgQueue.full.addAndGet(-1);
-        System.out.println(msg+",释放消息资源 full = "+MsgQueue.full.get());
+        //System.out.println(msg+",释放消息资源 full = "+MsgQueue.full.get());
     }
 
 
