@@ -51,8 +51,7 @@ public class ConsumerDemo {
      * 申请空缓冲区
      */
     public synchronized static void waitConsumer(String msg){
-        while (MsgQueue.empty.get() == MsgQueue.capacity
-                || MsgQueue.full.get() <=0){
+        while (MsgQueue.empty.get() == MsgQueue.capacity){
             System.out.println(msg + ",消息队列中无数据，等待中...");
         }
         System.out.println(msg + ",获取缓冲区数据");

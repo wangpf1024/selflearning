@@ -44,14 +44,14 @@ public class ProducerAndConsumerTestDemo {
             executor.execute(p1);
         }
 
- /*       try {
+        try {
             //获得资源 do something here
             Thread.sleep(10000);
         }catch (Exception e){
 
         }
 
-        MsgQueue.printMsg();*/
+       System.out.println(MsgQueue.msg());
 
 
        for (int i = 0; i < MsgQueue.capacity; i++) {
@@ -74,8 +74,6 @@ public class ProducerAndConsumerTestDemo {
         }
 
 
-
-
         try {
             //获得资源 do something here
             Thread.sleep(10000);
@@ -83,7 +81,7 @@ public class ProducerAndConsumerTestDemo {
 
         }
 
-        MsgQueue.printMsg();
+        System.out.println(MsgQueue.msg());
 
         //executor.shutdown();
 

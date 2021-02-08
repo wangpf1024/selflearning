@@ -98,10 +98,12 @@ public class MsgQueue {
     /**
      * 输出消息内容
      */
-    public static void printMsg(){
+    public static String msg(){
+        StringBuffer msg = new StringBuffer();
         for (int i = 0; i < emptyContent.length; i++) {
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+i + "," +emptyContent[i]);
+            msg.append(",").append(emptyContent[i]);
         }
+        return msg.toString();
     }
 
 
