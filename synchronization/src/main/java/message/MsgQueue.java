@@ -73,7 +73,9 @@ public class MsgQueue {
         //将消息放入 in 指针指向的缓冲区
         MsgQueue.emptyContent[in] = msg;
 
-        System.out.println(msg+",消息队列下标位置="+in+",内容："+msg);
+        //System.out.println(msg+",消息队列下标位置="+in+",内容："+msg);
+
+        System.out.println("生产者-"+MsgQueue.msg());
 
         return empty.addAndGet(-1);
 
@@ -82,13 +84,16 @@ public class MsgQueue {
     /**
      * 从 out 指针指向的缓冲区中区消息
      * @param out
-     * @param msg
      */
-    public static String getContent(int out,String msg){
+    public static String getContent(int out){
 
         //将消息放入 in 指针指向的缓冲区
         String content = MsgQueue.emptyContent[out];
+
         MsgQueue.emptyContent[out] = null;
+
+        System.out.println("消费者-"+MsgQueue.msg());
+
 
         return content;
 
@@ -99,9 +104,9 @@ public class MsgQueue {
      * 输出消息内容
      */
     public static String msg(){
-        StringBuffer msg = new StringBuffer();
+        StringBuffer msg = new StringBuffer("当前队列数据：");
         for (int i = 0; i < emptyContent.length; i++) {
-            msg.append(",").append(emptyContent[i]);
+            msg.append("[").append(emptyContent[i]).append("]");
         }
         return msg.toString();
     }

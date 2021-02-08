@@ -29,7 +29,7 @@ public class ConsumerDemo {
         MsgQueue.waitMsgQueue(msg);
 
         //从 out 指针指向的缓冲区中区消息
-        String content = MsgQueue.getContent(out.get(),msg);
+        String content = MsgQueue.getContent(out.get());
 
         System.out.println(msg+",获取队列中的内容"+content);
 

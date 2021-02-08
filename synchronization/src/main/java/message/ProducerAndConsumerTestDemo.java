@@ -44,15 +44,6 @@ public class ProducerAndConsumerTestDemo {
             executor.execute(p1);
         }
 
-        try {
-            //获得资源 do something here
-            Thread.sleep(10000);
-        }catch (Exception e){
-
-        }
-
-       System.out.println(MsgQueue.msg());
-
 
        for (int i = 0; i < MsgQueue.capacity; i++) {
             System.out.println("消费者-提交消费任务[" +i+"]次");
@@ -72,16 +63,6 @@ public class ProducerAndConsumerTestDemo {
 
             executor.execute(p1);
         }
-
-
-        try {
-            //获得资源 do something here
-            Thread.sleep(10000);
-        }catch (Exception e){
-
-        }
-
-        System.out.println(MsgQueue.msg());
 
         //executor.shutdown();
 
