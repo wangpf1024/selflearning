@@ -45,6 +45,12 @@ public class ProducerAndConsumerTestDemo {
         }
 
 
+        try {
+            Thread.sleep(10000);
+        }catch (Exception e){
+
+        }
+
        for (int i = 0; i < MsgQueue.capacity; i++) {
             System.out.println("消费者-提交消费任务[" +i+"]次");
             final int id = i;

@@ -28,10 +28,16 @@ public class ConsumerDemo {
         //申请公共缓冲区池的互斥访问权限
         MsgQueue.waitMsgQueue(msg);
 
+        //System.out.println("消费者，消费前-"+MsgQueue.msg());
+
         //从 out 指针指向的缓冲区中区消息
         String content = MsgQueue.getContent(out.get());
 
         System.out.println(msg+",获取队列中的内容"+content);
+
+        MsgQueue.emptyContent[out.get()] = null;
+
+        System.out.println("消费者，消费后-"+MsgQueue.msg());
 
         //out 指针指向下一个装有消息的缓冲区
         int outIdx = out.addAndGet(1) % MsgQueue.capacity;
@@ -41,7 +47,7 @@ public class ConsumerDemo {
         //释放对公共缓冲区的互斥访问权
         MsgQueue.signalMsgQueue(msg);
 
-        //释放消息资源
+        //释放消息资源å
         signalConsumer();
 
     }

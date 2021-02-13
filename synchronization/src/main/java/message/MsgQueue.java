@@ -90,9 +90,6 @@ public class MsgQueue {
         //将消息放入 in 指针指向的缓冲区
         String content = MsgQueue.emptyContent[out];
 
-        MsgQueue.emptyContent[out] = null;
-
-        System.out.println("消费者-"+MsgQueue.msg());
 
 
         return content;
