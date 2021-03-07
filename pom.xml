@@ -18,6 +18,7 @@
         <module>distributed-transaction-api</module>
         <module>home-work</module>
         <module>synchronization</module>
+        <module>algorithm</module>
     </modules>
 
 
