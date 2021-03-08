@@ -114,7 +114,7 @@ public class Banker {
     /**
      * 是一个大小为 n 的数组，进入安全检测过程时，对所有  i = 1，2... n， finish[i] = false。
      */
-    int finish[];
+    boolean finish[];
 
 
     /**
