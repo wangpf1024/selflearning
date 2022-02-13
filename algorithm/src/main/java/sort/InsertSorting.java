@@ -1,13 +1,11 @@
 package sort;
 
-import java.util.List;
-
 /**
  * 插入排序
  * @author Arvin
  * @date 2022-11
  */
-public class InsertSort {
+public class InsertSorting {
 
     /**
      * 待排序数组 R[0] 作为岗哨
@@ -39,7 +37,7 @@ public class InsertSort {
                  j--;
              }
              R[j + 1] = R[0];
-             InsertSort.sysOutSortR();
+             InsertSorting.sysOutSortR();
              System.out.println();
         }
     }
@@ -47,9 +45,9 @@ public class InsertSort {
 
     public static void main(String[] args) {
 
-        InsertSort.sysOutSortR();
+        InsertSorting.sysOutSortR();
         System.out.println();
-        InsertSort.straightInsertSort(unSortR,unSortR.length);
+        InsertSorting.straightInsertSort(unSortR,unSortR.length);
 
     }
 
