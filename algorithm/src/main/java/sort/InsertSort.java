@@ -39,15 +39,17 @@ public class InsertSort {
                  j--;
              }
              R[j + 1] = R[0];
+             InsertSort.sysOutSortR();
+             System.out.println();
         }
     }
 
 
     public static void main(String[] args) {
 
-        InsertSort.straightInsertSort(unSortR,unSortR.length);
-
         InsertSort.sysOutSortR();
+        System.out.println();
+        InsertSort.straightInsertSort(unSortR,unSortR.length);
 
     }
 
