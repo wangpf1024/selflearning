@@ -57,4 +57,48 @@ public class WaitAndSignal {
      *
      */
 
+
+    /**
+     * var e1,f1,e2,f2:semaphore;
+     * e1.value = 1;
+     * e2.value = 1;
+     * f1.value = 0;
+     * f2.value = 0;
+     *
+     * read
+     *
+     * Begin
+     *     Repeat
+     *          wait(e1);
+     *          //读取一条记录放入缓冲区B1中
+     *          signal(f1);
+     *     Until false;
+     * end
+     *
+     *
+     * move
+     *
+     * Begin
+     *     Repeat
+     *          wait(f1);
+     *          //从缓冲区B1中取出一条记录
+     *          signal(e1);
+     *          wait(e2);
+     *          //整理记录并放入缓冲区B2中
+     *          signal(f2);
+     *     Until false;
+     * end
+     *
+     * print
+     *
+     * Begin
+     *     Repeat
+     *          wait(f2);
+     *          //从缓冲区B2中取出一条记录，并打印
+     *          signal(e2);
+     *     Until false;
+     * end
+     *
+     */
+
 }
