@@ -6,7 +6,7 @@ public class QuickSorting {
     /**
      * 待排序数组 R[0] 作为岗哨
      */
-    static int[] unSortR = {0,45,38,66,90,88,10,25,45};
+    static int[] unSortR = {72,26,57,88,42,80,73,48,60};
 
 
     /**
