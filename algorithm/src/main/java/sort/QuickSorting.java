@@ -32,13 +32,13 @@ public class QuickSorting {
             /**
              * 3.首先 **j** 从 **n** 逐渐减少找到第一个满足 **R[j] < x** 的记录，这时候将 **R[j]** 移至 **R[i]** 的位置；
              */
-            while (i<j && R[j] <= x) j --;
+            while (i<j && R[j] >= x) j --;
             R[i] = R[j];
 
             /**
              * 4.然后另 **i** 自 **i + 1** 起逐渐增大找到第一个满足 **R[i] > x** 的记录，这时候将 **R[i]** 移至 **R[j]** 的位置；
              */
-            while (i<j && R[i] >= x) i ++;
+            while (i<j && R[i] <= x) i ++;
             R[j] = R[i];
 
         }
@@ -57,12 +57,12 @@ public class QuickSorting {
 
             int temp = quickPartition(R,i,j);
 
-            /**
+           /* *//**
              * 5.接着 **j** 自 **j - 1 **起重复上述过程，直至 **i = j**，测试 **i** 便是 **x** 记录所应在的位置，至此一趟排序完成。
-             */
+             *//*
             quickSorting(R,i,temp -1);
 
-            quickSorting(R,temp + 1,j);
+            quickSorting(R,temp + 1,j);*/
         }
     }
 
