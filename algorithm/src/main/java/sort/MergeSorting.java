@@ -5,7 +5,7 @@ public class MergeSorting {
     /**
      * 待排序数组 R[0] 作为岗哨
      */
-    static int[] unSortR = {72,26,57,88,42,80,73,48,60};
+    static int[] unSortR = {72,26,57,88,42,80,73,48,60,10};
 
 
     /**
@@ -27,20 +27,21 @@ public class MergeSorting {
      * 合并成一个有序序列 Rh,......Rn 使合并后的序列键值满足
      *        K'h <=..... <= K'm <= K'm+1 <= ......K'n
      *        O(n-h+1)
-     * @param a
-     * @param R
-     * @param h
-     * @param m
-     * @param n
+     * @param a 第一个数组
+     * @param R 目标数组
+     * @param h 第一个数组的第一个位置。
+     * @param m 第一个数组的最后一个位置。
+     * @param n 第二个数组的长度。
      */
-    public static void merge(int[] a,int[] R,int h,int m, int n){
+    public static int[] merge(int[] a,int[] R,int h,int m, int n){
 
         // a 起始位置
         int k = h;
         int j = m +1;
 
         //将 a[] 中的记录从小到大合并到 R[]
-        while ((h <= m) && (j <= n)){
+        while ((h <= m)
+                && (j <= n)){
 
             if(a[h] <= a[j]){ // a[h] 键值小，送入 R[K] 并修改 h 的值
 
@@ -77,29 +78,35 @@ public class MergeSorting {
             k ++;
         }
 
+        return R;
 
     }
 
 
     /**
-     * 第一次合并算法
-     *  在含有 n 个记录中的序列 a 中，将长度各为 h 的相邻的两个有序序列合并成一个长度为 2h 的一个有序序列并把结果存入 b 中。
-     * @param a
-     * @param b
-     * @param n
-     * @param h
+     *  第一次合并算法
+     *  在含有 n 个记录中的序列 a 中，
+     *  将长度各为 h 的相邻的两个有序序列合并成一个长度为 2h 的一个有序序列并把结果存入 b 中。
+     * @param a 第一个数组
+     * @param b 目标数组
+     * @param n 记录数量
+     * @param h 第一次合并数组长度
      */
-    public static void mergePass(int[] a,int[] b,int n,int h){
+    public static int[] mergePass(int[] a,int[] b,int n,int h){
 
         int i = 0;
 
-        while (i <= n-2*h +1) {
+        while (i <= n-(2*h)+1) {
 
             /**
-             * 将序列 ai,.....ai+h-1 和 序列 ai+h,......ai+2h-1
-             * 合并到 bi,......bi+2*h-1
+             * 将
+             * 序列 ai,.....ai+h-1
+             * 和
+             * 序列 ai+h,......ai+2h-1
+             * 合并
+             * 到 bi,......bi+2*h-1
              */
-            merge(a,b,i,i+h-1,i+2*h-1);
+            b = merge(a,b,i,i+h-1,i+2*h-1);
 
             //下标移动到 2*h
             i += 2*h;
@@ -107,13 +114,13 @@ public class MergeSorting {
         }
 
         // h < 剩余序列长度 < 2h
-        if(i + h -1 <n){
+        if(i + h  - 1< n){
 
             /**
              * 将序列 ai,......ai+h+1 和 序列 ai+h,......an
              * 和并到 bi,......bn
              */
-            merge(a,b,i,i+h-1,n);
+            b = merge(a,b,i,i+h-1,n-1);
 
         }else{
 
@@ -127,6 +134,7 @@ public class MergeSorting {
 
         }
 
+        return b;
     }
 
 
@@ -138,28 +146,31 @@ public class MergeSorting {
     public static void mergeSort(int[] a,int n){
 
         // m 为子序列长度，初始化值为 1
-        int m = 0;
+        int m = 1;
 
-        int[] b = new int[1];
+        int[] b;
 
         while (m < n){
-            //将许阿里 a 中的有序子序列合并到 b
-            mergePass(a,b,n,m);
+            //将子序列 a 中的有序子序列合并到 b
+            b = new int[n];
+            b = mergePass(a,b,n,m);
             //子序列扩大 1 倍
             m = 2 * m;
 
             //将子序列 b 中的有序子序列合并到 a
-            mergePass(b,a,n,m);
+            a = new int[n];
+            a = mergePass(b,a,n,m);
             //子序列扩大 1 倍
             m = 2 * m;
         }
 
+        unSortR = a;
     }
 
     public static void main(String[] args) {
         MergeSorting.sysOutSortR();
         System.out.println();
-        MergeSorting.mergeSort(unSortR,8);
+        MergeSorting.mergeSort(unSortR,10);
         MergeSorting.sysOutSortR();
     }
 
