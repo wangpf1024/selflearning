@@ -28,12 +28,11 @@ public class HeapSorting {
    public static int[] sift(int[] R,int k,int m){
 
        int i,j,x;
-       int t;
 
-       i =k;j=2*i;
+       i = k;
+       j=2*i;
 
        x = R[k];
-       t = R[k];
 
        while (j <=m){
 
@@ -50,7 +49,7 @@ public class HeapSorting {
            }
        }
        //填入恰当的位置
-       R[i] = t;
+       R[i] = x;
        return R;
    }
 
@@ -74,7 +73,7 @@ public class HeapSorting {
            R[1] = R[i];
            R[i] = tmp;
            //调整新堆
-           R = HeapSorting.sift(R,0,i -1);
+           R = HeapSorting.sift(R,1,i -1);
        }
 
        unSortR = R;
